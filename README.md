@@ -30,6 +30,7 @@ Open `http://localhost:3000`.
 - `/onboarding` learner assessment and 90-day plan generation
 - `/login` Supabase Auth-ready login surface
 - `/dashboard` strict accountability dashboard
+- `/practice` mandatory voice practice lab with browser recording, transcript editing, AI scoring, habit detection, and completion gate
 - `/roadmap` 90-day roadmap
 - `/admin` admin operations panel
 

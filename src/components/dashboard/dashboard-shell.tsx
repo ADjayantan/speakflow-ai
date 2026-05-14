@@ -62,7 +62,7 @@ const heatmap = [
 ];
 
 const modules = [
-  { title: "AI Speaking Practice", icon: Mic, progress: 72, locked: false },
+  { title: "AI Speaking Practice", icon: Mic, progress: 72, locked: false, href: "/practice" },
   { title: "Accent Trainer", icon: Volume2, progress: 61, locked: false },
   { title: "Vocabulary Builder", icon: Sparkles, progress: 54, locked: false },
   { title: "Listening Practice", icon: Headphones, progress: 81, locked: false },
@@ -127,7 +127,7 @@ function Sidebar() {
   const items = [
     ["Dashboard", Home, "/dashboard"],
     ["Roadmap", Target, "/roadmap"],
-    ["Speaking", Mic, "/dashboard#speaking"],
+    ["Speaking", Mic, "/practice"],
     ["Accent", Volume2, "/dashboard#accent"],
     ["Reports", LineChart, "/dashboard#reports"],
     ["Admin", ShieldAlert, "/admin"],
@@ -232,6 +232,12 @@ function HeroAccountability({
               <CalendarCheck />
               Submit Today
             </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/practice">
+                <Mic />
+                Open Speaking Lab
+              </Link>
+            </Button>
             <Button onClick={onPenalty} size="lg" variant="secondary">
               Apply Skip Demo
             </Button>
@@ -308,6 +314,11 @@ function TodayTasks() {
             <div className="text-right text-sm">
               <div className="font-semibold text-speak-green">+{task.xp} XP</div>
               <div className="text-muted-foreground">{task.duration}</div>
+              {task.id === "voice-checkin" ? (
+                <Button asChild className="mt-3" size="sm" variant="outline">
+                  <Link href="/practice">Start</Link>
+                </Button>
+              ) : null}
             </div>
           </div>
         ))}
@@ -353,23 +364,37 @@ function ModuleGrid() {
   return (
     <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
       {modules.map((module) => (
-        <div key={module.title} className="rounded-lg border border-white/10 bg-white/[0.045] p-4">
-          <div className="flex items-center gap-3">
-            <div className="grid h-11 w-11 place-items-center rounded-lg bg-primary/15 text-primary">
-              <module.icon className="h-5 w-5" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <h3 className="truncate font-semibold">{module.title}</h3>
-                {module.locked ? <Lock className="h-3.5 w-3.5 text-speak-amber" /> : null}
-              </div>
-              <Progress value={module.progress} className="mt-3" />
-            </div>
-          </div>
-        </div>
+        <ModuleCard key={module.title} module={module} />
       ))}
     </section>
   );
+}
+
+function ModuleCard({ module }: { module: (typeof modules)[number] }) {
+  const content = (
+    <>
+      <div className="grid h-11 w-11 place-items-center rounded-lg bg-primary/15 text-primary">
+        <module.icon className="h-5 w-5" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <h3 className="truncate font-semibold">{module.title}</h3>
+          {module.locked ? <Lock className="h-3.5 w-3.5 text-speak-amber" /> : null}
+        </div>
+        <Progress value={module.progress} className="mt-3" />
+      </div>
+    </>
+  );
+
+  if ("href" in module && module.href) {
+    return (
+      <Link className="flex items-center gap-3 rounded-lg border border-primary/20 bg-primary/8 p-4 transition hover:bg-primary/12" href={module.href}>
+        {content}
+      </Link>
+    );
+  }
+
+  return <div className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.045] p-4">{content}</div>;
 }
 
 function PronunciationRepair() {

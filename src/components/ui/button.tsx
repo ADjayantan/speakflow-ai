@@ -12,14 +12,14 @@ const buttonVariants = cva(
         default:
           "bg-primary text-primary-foreground shadow-[0_14px_40px_rgba(59,130,246,0.28)] hover:bg-primary/90",
         secondary:
-          "border border-white/10 bg-white/8 text-foreground hover:bg-white/12",
-        ghost: "text-muted-foreground hover:bg-white/8 hover:text-foreground",
+          "border border-white/10 bg-white/[0.08] text-foreground hover:bg-white/[0.12]",
+        ghost: "text-muted-foreground hover:bg-white/[0.08] hover:text-foreground",
         danger:
           "bg-destructive text-destructive-foreground shadow-[0_14px_40px_rgba(239,68,68,0.25)] hover:bg-destructive/90",
         success:
           "bg-speak-green text-speak-navy shadow-[0_14px_40px_rgba(16,185,129,0.25)] hover:bg-speak-green/90",
         outline:
-          "border border-primary/35 bg-primary/5 text-primary hover:bg-primary/12",
+          "border border-primary/35 bg-primary/5 text-primary hover:bg-primary/[0.12]",
       },
       size: {
         default: "h-11 px-5",
